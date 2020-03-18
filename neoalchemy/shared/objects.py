@@ -117,6 +117,10 @@ class PropertyMeta(type):
         cls.type = SetOnceDescriptor('type')
         cls.default = SetOnceDescriptor('default')
         cls.obj = SetOnceDescriptor('obj', type=PropertyMeta.valid_graph_obj)
+        print(cls)
+        #print(cls.name)
+        print(dir(cls))
+        print(cls.__dict__)
         for attr in ('unique', 'indexed', 'required',
                      'primary_key', 'read_only'):
             setattr(cls, attr, SetOnceDescriptor(attr, type=bool))
@@ -137,7 +141,6 @@ class Property(CypherOperatorInterface):
                  primary_key=False, read_only=False):
         self.obj = obj
         self.type = type
-
         self.unique = bool(unique)
         self.indexed = self.unique or bool(indexed)
         self.required = bool(required)

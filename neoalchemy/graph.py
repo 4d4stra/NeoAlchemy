@@ -5,7 +5,7 @@ providing a convenient auto-connection during initialization.
 from collections import deque, namedtuple
 import warnings
 
-from neo4j.v1 import (GraphDatabase, basic_auth, Record,
+from neo4j import (GraphDatabase, basic_auth, Record,
                       Node as NeoNode, Relationship as NeoRelationship)
 
 from .primitives import Node, Relationship
