@@ -34,8 +34,8 @@ class Rehydrator(object):
             else:
                 values.append(value)
         #print(record.keys())
-        #print(values)
-        return Record(zip(record.keys(), values))
+        print(values,values[0])
+        return values[0]#Record(zip(record.keys(), values))
 
     def __next__(self):
         record = next(self.__result_set)
