@@ -21,20 +21,24 @@ class Rehydrator(object):
 
     def __next__(self):
         record = next(self.__result_set)
+        #print(record)
+        #print(self.__result_set)
         values = []
         for value in record.values():
             if isinstance(value, NeoNode):
                 try:
-                    cls = self.__schema[tuple(value.labels)]
+                    cls = self.__schema[tuple(value._labels)]
                 except KeyError:
-                    values.append(Node(*value.labels, **value.properties))
+                    values.append(Node(*value._labels, **value._properties))
                 else:
-                    values.append(cls(**value.properties))
+                    values.append(cls(**value._properties))
             elif isinstance(value, NeoRelationship):
-                values.append(Relationship(value.type, **value.properties))
+                values.append(Relationship(value.type, **value._properties))
             else:
                 values.append(value)
-        return Record(record.keys(), values)
+        #print(record.keys())
+        #print(values)
+        return Record(zip(record.keys(), values))
 
     def next(self):
         return self.__next__()

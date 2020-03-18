@@ -132,6 +132,7 @@ class OGMBase(object):
 
         matched = self.__node__.copy(**properties)
         match = Match(matched).return_(matched)
+        print(match)
         return Rehydrator(self.graph.query(match, **match.params),
                           self.graph)
 
