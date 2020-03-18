@@ -19,10 +19,7 @@ class Rehydrator(object):
     def __iter__(self):
         return self
 
-    def __next__(self):
-        record = next(self.__result_set)
-        #print(record)
-        #print(self.__result_set)
+    def __parse_record__(self,record):
         values = []
         for value in record.values():
             if isinstance(value, NeoNode):
@@ -39,6 +36,10 @@ class Rehydrator(object):
         #print(record.keys())
         #print(values)
         return Record(zip(record.keys(), values))
+
+    def __next__(self):
+        record = next(self.__result_set)
+        return self.__parse_record__(record)
 
     def next(self):
         return self.__next__()
@@ -61,6 +62,12 @@ class Rehydrator(object):
             return record
         else:
             return record[0]
+
+    def all(self):
+        results=[]
+        for res_i in self.__result_set:
+            results.append(self.__parse_record__(res_i))
+        return results
 
 
 class QueryLog(deque):
